@@ -10,4 +10,5 @@ addons:
       - libpcap-dev
       - libnet1-dev
 script:
+  - cd src
   - ./compile.sh
