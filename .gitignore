@@ -1,0 +1,6 @@
+*~
+*.exe
+*.dbg
+*.pub
+*.key
+.gdb_history
