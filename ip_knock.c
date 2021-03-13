@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/* Compatibility with ?really? old versions of libnet */
+#ifndef uint
+typedef unsigned int uint;
+#endif
+
 #include <libnet.h>
 #include <sodium.h>
 
