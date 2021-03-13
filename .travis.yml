@@ -1,0 +1,13 @@
+dist: focal
+sudo: false
+language: c
+compiler:
+  - gcc
+addons:
+  apt:
+    packages:
+      - libsodium-dev
+      - libpcap-dev
+      - libnet1-dev
+script:
+  - ./compile.sh
