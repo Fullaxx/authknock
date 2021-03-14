@@ -2,12 +2,13 @@
 [![Build Status](https://travis-ci.com/Fullaxx/authknock.svg?branch=master)](https://travis-ci.com/Fullaxx/authknock)
 
 # AuthKnock
-An authenticated encrypted port/protocol knock daemon
+An authenticated encrypted port/protocol knock daemon built from:
+* [libnet](https://github.com/libnet/libnet)
+* [libpcap](https://www.tcpdump.org/)
+* [libsodium](https://github.com/jedisct1/libsodium)
 
-## Software
-[libnet](https://github.com/libnet/libnet) \
-[libpcap](https://www.tcpdump.org/) \
-[libsodium](https://github.com/jedisct1/libsodium)
+AuthKnock will allow you to send/receive a single encrypted message that can be authenticated. \
+This framework provides the ability to do one-way Command & Control.
 
 ## Requirements
 First we need to make sure we have all the appropriate libraries. \
