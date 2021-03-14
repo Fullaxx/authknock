@@ -39,10 +39,12 @@ Saved secret key: client.key
 ```
 
 ## IP knocking
-ip_receptor will listen for an encrypted message with a specific IP protocol value and authenticate it with keys provided. \
 ip_knock will send an encrypted message, wrapped in IP, with a protocol value of your choice. \
+ip_receptor will listen for an encrypted message with a specific IP protocol value and authenticate it with keys provided. \
+Upon authenticating the message, ip_receptor will by default run a system command on the message. \
+You can change the default behavior by adjusting handle_payload() in payload.c \
 root privileges are required to use libnet/libpcap.
 ```
 # ./ip_receptor.exe           -p 255 --public client.pub --secret server.key
-# ./ip_knock.exe -d 127.0.0.1 -p 255 --public server.pub --secret client.key
+# ./ip_knock.exe -d 127.0.0.1 -p 255 --public server.pub --secret client.key -m ls
 ```

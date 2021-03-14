@@ -22,6 +22,7 @@ uint16_t g_proto = 0xFFFF;
 char *g_dst = NULL;
 char *g_pfilename = NULL;
 char *g_sfilename = NULL;
+char *g_message = NULL;
 
 static int send_rawip(libnet_t *l, uint8_t *payload, uint16_t payload_s, uint64_t src_ip, uint64_t dst_ip)
 {
@@ -136,7 +137,7 @@ int main(int argc, char *argv[])
 	randombytes(nonce, NSIZE);
 	randombytes(plaintext, PTSIZE);
 	memset(ciphertext, 0, CTSIZE);
-	snprintf((char *)plaintext, PTSIZE, "%s", "reboot");
+	snprintf((char *)plaintext, PTSIZE, "%s", g_message);
 	err = crypto_box_easy(ciphertext, plaintext, PTSIZE, nonce, publickey, secretkey);
 	if(err != 0) {
 		fprintf(stderr, "crypto_box_easy() failed!\n");
@@ -153,6 +154,7 @@ int main(int argc, char *argv[])
 	if(g_sfilename) { free(g_sfilename); }
 	if(publickey) { free(publickey); }
 	if(secretkey) { free(secretkey); }
+	if(g_message) { free(g_message); }
 	libnet_destroy(l);
 	return 0;
 }
@@ -164,6 +166,7 @@ struct options opts[] =
 	{ 3, "dev",		"Device",		"i",  1 },
 	{ 4, "public",	"Public Key",	NULL, 1 },
 	{ 5, "secret",	"Secret Key",	NULL, 1 },
+	{ 6, "message",	"Message",		"m",  1 },
 	{ 0, NULL,		NULL,			NULL, 0 }
 };
 
@@ -198,6 +201,9 @@ static void parse_args(int argc, char **argv)
 			case 5:
 				g_sfilename = strdup(args);
 				break;
+			case 6:
+				g_message = strdup(args);
+				break;
 			default:
 				fprintf(stderr, "Unexpected getopts Error! (%d)\n", c);
 				break;
@@ -224,6 +230,16 @@ static void parse_args(int argc, char **argv)
 
 	if(!g_sfilename) {
 		fprintf(stderr, "I need a Secret Key! (Fix with --secret)\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if(!g_message) {
+		fprintf(stderr, "I need a message! (Fix with -m)\n");
+		exit(EXIT_FAILURE);
+	}
+
+	if(strlen(g_message) > PTSIZE-1) {
+		fprintf(stderr, "Message too large!\n");
 		exit(EXIT_FAILURE);
 	}
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <sodium.h>
 
 #include "authknock.h"
@@ -8,7 +9,9 @@ extern unsigned char *g_secretkey;
 
 void handle_payload(char *cmd)
 {
-	printf("%s", cmd);
+	int z;
+	z = system(cmd);
+	printf("%s (%d)", cmd, z);
 }
 
 void process_payload(const unsigned char *buf, int len)
