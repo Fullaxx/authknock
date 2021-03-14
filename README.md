@@ -22,5 +22,27 @@ If your OS is not listed, please help us fill out the table, or submit a request
 
 ## Compiling
 ```
-./compile.sh
+$ cd src
+$ ./compile.sh
+```
+
+## Creating keypairs
+gen_keypair will create a single keypair. \
+You will need 2 keypairs to send an authenticated message.
+```
+$ ./gen_keypair.exe server
+Saved public key: server.pub
+Saved secret key: server.key
+$ ./gen_keypair.exe client
+Saved public key: client.pub
+Saved secret key: client.key
+```
+
+## IP knocking
+ip_receptor will listen for an encrypted message with a specific IP protocol value and authenticate it with keys provided. \
+ip_knock will send an encrypted message, wrapped in IP, with a protocol value of your choice. \
+root privileges are required to use libnet/libpcap.
+```
+# ./ip_receptor.exe           -p 255 --public client.pub --secret server.key
+# ./ip_knock.exe -d 127.0.0.1 -p 255 --public server.pub --secret client.key
 ```
