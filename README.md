@@ -1,7 +1,4 @@
-
-[![Build Status](https://travis-ci.com/Fullaxx/authknock.svg?branch=master)](https://travis-ci.com/Fullaxx/authknock)
-
-# AuthKnock
+# AuthKnock [![Actions Status](https://github.com/Fullaxx/authknock/workflows/CI/badge.svg)](https://github.com/Fullaxx/authknock/actions)
 An authenticated encrypted port/protocol knock daemon built from:
 * [libnet](https://github.com/libnet/libnet)
 * [libpcap](https://www.tcpdump.org/)
