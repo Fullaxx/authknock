@@ -14,6 +14,7 @@
 # FLAVOR="ubuntu"; VERS="focal";    docker run -it --rm -h "${FLAVOR}${VERS}" --name "${FLAVOR}${VERS}" ${FLAVOR}:${VERS}
 # FLAVOR="ubuntu"; VERS="bionic";   docker run -it --rm -h "${FLAVOR}${VERS}" --name "${FLAVOR}${VERS}" ${FLAVOR}:${VERS}
 # FLAVOR="ubuntu"; VERS="xenial";   docker run -it --rm -h "${FLAVOR}${VERS}" --name "${FLAVOR}${VERS}" ${FLAVOR}:${VERS}
+# FLAVOR="ubuntu"; VERS="jammy";    docker run -it --rm -h "${FLAVOR}${VERS}" --name "${FLAVOR}${VERS}" ${FLAVOR}:${VERS}
 
 bail()
 {
@@ -119,7 +120,11 @@ if [ ${FLAVOR} == "ubuntu" ]; then
   cp -v ${SLIBDIR}/libpthread.a ./
   cp -v ${SLIBDIR}/libsodium.a ./
   cp -v ${SLIBDIR}/libnet.a ./
-  cp -v ${SLIBDIR}/libpcap.a ./
+  if [ ${VERS} == "22.04" ]; then
+    compile_libpcap "1.10.1"
+  else
+    cp -v ${SLIBDIR}/libpcap.a ./
+  fi
   exit 0
 fi
 
